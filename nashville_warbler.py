@@ -13,7 +13,7 @@ class App(QWidget):
     def __init__(self):
         super().__init__()
         self.title = "Nashville Warbler"
-        self.count = 0
+        self.clicks = 0
         self.initUI()
         
     def initUI(self):
@@ -25,42 +25,29 @@ class App(QWidget):
         self.label.setPixmap(self.pixmap)
         
         self.button = QPushButton('--->', self)
-        self.button.setGeometry(100,100,250,100)
+        self.button.setGeometry(100,100,200,100)
         self.button.setStyleSheet("font-size:50px;")
         self.button.move(1700, 900)
         self.button.clicked.connect(self.right_button_click)
         
-        self.button1 = QPushButton('<---',self)
-        self.button1.setGeometry(100,100,250,100)
-        self.button1.setStyleSheet("font-size:50px;")
-        self.button1.move(0,900)
-        self.button.clicked.connect(self.left_button_click)
         
         self.show()
+        
         
     def right_button_click(self):
-        self.count = self.count + 1
-        if self.count == 1:
+        if self.clicks < 1:
+            self.clicks = self.clicks + 1
             self.pixmap = QPixmap(pic2)
             self.label.setPixmap(self.pixmap)
-        if self.count == 2:
+        elif self.clicks < 2:
+            self.clicks = self.clicks + 1
             self.pixmap = QPixmap(pic3)
             self.label.setPixmap(self.pixmap)
-        print(self.count) 
-        self.show()
-        
-    def left_button_click(self):
-        self.count = self.count - 1
-        if self.count == 1:
-            self.pixmap = QPixmap(pic2)
-            self.label.setPixmap(self.pixmap)
-        if self.count == 0:
+        else:
+            self.clicks = 0
             self.pixmap = QPixmap(pic1)
             self.label.setPixmap(self.pixmap)
-        print(self.count)
-        
         self.show()
-      
       
         
 if __name__ == "__main__":
